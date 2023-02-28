@@ -221,7 +221,7 @@ void Rotation::setValue(const double q[4])
 void Rotation::setValue(const Matrix4D & m)
 {
     
-    auto type = m.hasScale();
+    auto type = m.hasScale(1e-7);
     if (type == Base::ScaleType::Other) {
         THROWM(Base::ValueError, "setValue(matrix): Could not determine the rotation.");
     }
@@ -270,7 +270,7 @@ void Rotation::setValue(const Matrix4D & m)
         this->quat[j] = ((mc[j][i] + mc[i][j]) * s);
         this->quat[k] = ((mc[k][i] + mc[i][k]) * s);
     }
-
+    this->normalize();
     this->evaluateVector();
 }
 
