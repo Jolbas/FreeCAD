@@ -8,7 +8,7 @@
 TEST(Rotation, TestNonUniformScaleLeft)
 {
     Base::Rotation rot;
-    rot.setYawPitchRoll(20.0, 0.0, 0.0);
+    rot.setYawPitchRoll(25.0, 0.0, 0.0);
 
     Base::Matrix4D mat;
     rot.getValue(mat);
