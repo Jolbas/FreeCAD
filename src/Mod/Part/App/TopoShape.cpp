@@ -3066,8 +3066,11 @@ TopoDS_Shape TopoShape::transformGShape(const Base::Matrix4D& rclTrf, bool copy)
     mat.SetValue(2,4,rclTrf[1][3]);
     mat.SetValue(3,4,rclTrf[2][3]);
 
+    // Copy may not be necessary if OCCT non-orthogonal issue is fixed upstream
+    // https://github.com/FreeCAD/FreeCAD/issues/9651
+    BRepBuilderAPI_Copy c(this->_Shape);
     // geometric transformation
-    BRepBuilderAPI_GTransform mkTrf(this->_Shape, mat, copy);
+    BRepBuilderAPI_GTransform mkTrf(c.Shape(), mat, copy);
     return mkTrf.Shape();
 }
 
